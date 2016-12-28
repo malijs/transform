@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package Transform;
+
+service TransformService {
+  rpc Do1 (TranformRequest) returns (Tranform1Response) {}
+  rpc Do2 (TranformRequest) returns (Tranform2Response) {}
+  rpc Do3 (Tranform3Request) returns (Tranform1Response) {}
+}
+
+message TranformRequest {
+  string message = 1;
+  string value = 2;
+}
+
+message Tranform1Response {
+  string message = 1;
+  string value = 2;
+}
+
+message Tranform2Response {
+  string message = 1;
+}
+
+message Tranform3Request {
+  string message = 1;
+  string value = 2;
+  string secret = 3;
+}
