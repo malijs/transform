@@ -2,6 +2,10 @@ import test from 'ava'
 import path from 'path'
 import caller from 'grpc-caller'
 import Mali from 'mali'
+import hl from 'highland'
+import async from 'async'
+import _ from 'lodash'
+import pMap from 'p-map'
 
 import mw from '../'
 
@@ -11,6 +15,19 @@ function getRandomInt (min, max) {
 
 function getHostport (port) {
   return '0.0.0.0:'.concat(port || getRandomInt(1000, 60000))
+}
+
+const ARRAY_DATA = [
+  { message: '1 foo' },
+  { message: '2 bar' },
+  { message: '3 asd' },
+  { message: '4 qwe' },
+  { message: '5 rty' },
+  { message: '6 zxc' }
+]
+
+function getArrayData () {
+  return _.cloneDeep(ARRAY_DATA)
 }
 
 const PROTO_PATH = path.resolve(__dirname, './xform.proto')
@@ -29,6 +46,18 @@ class MyClass {
     return {
       message: this.message.toUpperCase(),
       value: this.value
+    }
+  }
+}
+
+class MyClass2 {
+  constructor (data) {
+    this.message = data.message
+  }
+
+  toPayload () {
+    return {
+      message: this.message.replace(/:/gi, '|')
     }
   }
 }
@@ -54,6 +83,26 @@ test.before('should dynamically create service', t => {
     ctx.res = o
   }
 
+  async function handler4 (ctx) {
+    return new Promise((resolve, reject) => {
+      hl(ctx.req)
+        .map(d => {
+          return d.message.toUpperCase()
+        })
+        .collect()
+        .toCallback((err, r) => {
+          if (err) {
+            return reject(err)
+          }
+
+          ctx.res = new MyClass2({
+            message: r.join(':')
+          })
+          resolve()
+        })
+    })
+  }
+
   const app = new Mali(PROTO_PATH, 'TransformService')
   t.truthy(app)
   apps.push(app)
@@ -61,6 +110,7 @@ test.before('should dynamically create service', t => {
   app.use('do1', handler1)
   app.use('do2', mw('xform'), handler2)
   app.use('do3', mw('payload'), handler3)
+  app.use('do4', mw('toPayload'), handler4)
   const server = app.start(DYNAMIC_HOST)
 
   t.truthy(server)
@@ -98,6 +148,24 @@ test('async call service with transform within prototype', async t => {
   t.is(response.value, 'value 3')
 })
 
-test.after.always('guaranteed cleanup', t => {
-  apps.forEach(app => app.close())
+test.cb('should handle transform within req stream handler', t => {
+  t.plan(4)
+  const call = client.do4((err, res) => {
+    t.ifError(err)
+    t.truthy(res)
+    t.truthy(res.message)
+    t.is(res.message, '1 FOO|2 BAR|3 ASD|4 QWE|5 RTY|6 ZXC')
+    t.end()
+  })
+
+  async.eachSeries(getArrayData(), (d, asfn) => {
+    call.write(d)
+    _.delay(asfn, _.random(10, 50))
+  }, () => {
+    call.end()
+  })
+})
+
+test.after.always('cleanup', async t => {
+  await pMap(apps, app => app.close())
 })

@@ -6,6 +6,7 @@ service TransformService {
   rpc Do1 (TranformRequest) returns (Tranform1Response) {}
   rpc Do2 (TranformRequest) returns (Tranform2Response) {}
   rpc Do3 (Tranform3Request) returns (Tranform1Response) {}
+  rpc Do4 (stream TranformRequest) returns (Tranform1Response) {}
 }
 
 message TranformRequest {

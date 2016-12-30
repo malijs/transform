@@ -30,7 +30,7 @@ const CallType = require('mali-call-types')
  */
 module.exports = function (fn) {
   return function transform (ctx, next) {
-    if (ctx.type === CallType.RESPONSE_STREAM || ctx.type === CallType.RESPONSE_STREAM) {
+    if (ctx.type === CallType.RESPONSE_STREAM || ctx.type === CallType.DUPLEX) {
       return next()
     }
 
