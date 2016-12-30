@@ -1,6 +1,6 @@
 {
   "name": "mali-transform",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mali response payload transform middleware",
   "main": "index.js",
   "repository": {
