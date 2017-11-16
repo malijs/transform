@@ -32,18 +32,14 @@
   },
   "devDependencies": {
     "async": "^2.1.4",
-    "ava": "^0.17.0",
-    "babel-eslint": "^7.1.1",
-    "grpc-caller": "^0.1.0",
+    "ava": "^0.23.0",
+    "grpc-caller": "^0.3.0",
     "highland": "^3.0.0-beta.3",
-    "jsdoc-to-markdown": "^2.0.1",
+    "jsdoc-to-markdown": "^3.0.0",
     "lodash": "^4.17.3",
-    "mali": "^0.0.2",
+    "mali": "^0.4.0",
     "md-wrap-code": "^0.1.1",
     "p-map": "^1.1.0",
-    "standard": "^8.6.0"
-  },
-  "standard": {
-    "parser": "babel-eslint"
+    "standard": "^10.0.0"
   }
 }
