@@ -1,11 +1,10 @@
 # mali-transform
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/transform.svg)](https://greenkeeper.io/)
-
 Mali response payload transform middleware
 
 [![npm version](https://img.shields.io/npm/v/mali-transform.svg?style=flat-square)](https://www.npmjs.com/package/mali-transform)
 [![build status](https://img.shields.io/travis/malijs/transform/master.svg?style=flat-square)](https://travis-ci.org/malijs/transform)
+[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/transform.svg)](https://greenkeeper.io/)
 
 ## API
 
