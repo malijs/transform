@@ -34,7 +34,7 @@
     "async": "^2.6.1",
     "ava": "^0.25.0",
     "greenkeeper-lockfile": "^1.15.1",
-    "grpc": "^1.13.1",
+    "grpc": "^1.14.2",
     "grpc-caller": "^0.9.0",
     "highland": "^3.0.0-beta.6",
     "jsdoc-to-markdown": "^4.0.1",
