@@ -151,7 +151,7 @@ test('async call service with transform within prototype', async t => {
 test.cb('should handle transform within req stream handler', t => {
   t.plan(4)
   const call = client.do4((err, res) => {
-    t.ifError(err)
+    t.falsy(err)
     t.truthy(res)
     t.truthy(res.message)
     t.is(res.message, '1 FOO|2 BAR|3 ASD|4 QWE|5 RTY|6 ZXC')

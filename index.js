@@ -1,15 +1,15 @@
-const CallType = require('mali-call-types')
+const CallType = require('@malijs/call-types')
 
 /**
  * Mali payload transform middleware. If the response object has a specified function
  * that function it's executed upon payload. Only applies for <code>UNARY</code> and
  * <code>REQUEST_STREAM</code> call types.
- * @module mali-transform
+ * @module @malijs/transform
  *
  * @param  {String} fn The name of the function property to check against in the response object
  * @return {Function} the middleware function
  * @example
- * const xform = require('mali-transform')
+ * const xform = require('@malijs/transform')
  *
  * function handler(ctx) {
  *   const obj = {

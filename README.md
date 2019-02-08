@@ -1,16 +1,15 @@
-# mali-transform
+# @malijs/transform
 
 Mali response payload transform middleware
 
-[![npm version](https://img.shields.io/npm/v/mali-transform.svg?style=flat-square)](https://www.npmjs.com/package/mali-transform)
+[![npm version](https://img.shields.io/npm/v/@malijs/transform.svg?style=flat-square)](https://www.npmjs.com/package/@malijs/transform)
 [![build status](https://img.shields.io/travis/malijs/transform/master.svg?style=flat-square)](https://travis-ci.org/malijs/transform)
-[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/transform.svg)](https://greenkeeper.io/)
 
 ## API
 
-<a name="module_mali-transform"></a>
+<a name="module_@malijs/transform"></a>
 
-### mali-transform ⇒ <code>function</code>
+### @malijs/transform ⇒ <code>function</code>
 Mali payload transform middleware. If the response object has a specified function
 that function it's executed upon payload. Only applies for <code>UNARY</code> and
 <code>REQUEST_STREAM</code> call types.
@@ -22,9 +21,8 @@ that function it's executed upon payload. Only applies for <code>UNARY</code> an
 | fn | <code>String</code> | The name of the function property to check against in the response object |
 
 **Example**  
-
 ```js
-const xform = require('mali-transform')
+const xform = require('@malijs/transform')
 
 function handler(ctx) {
   const obj = {
@@ -43,7 +41,6 @@ function handler(ctx) {
 
 app.use('fn', xform('xform'), handler)
 ```
-
 ## License
 
   Apache-2.0
